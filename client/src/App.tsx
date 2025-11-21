@@ -10,6 +10,10 @@ import Products from "./pages/Products";
 import Software from "./pages/Software";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminSoftware from "./pages/admin/Software";
+import AdminCategories from "./pages/admin/Categories";
 
 function Router() {
   return (
@@ -19,6 +23,10 @@ function Router() {
       <Route path={"/software"} component={Software} />
       <Route path={"/about"} component={About} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin/products"} component={AdminProducts} />
+      <Route path={"/admin/software"} component={AdminSoftware} />
+      <Route path={"/admin/categories"} component={AdminCategories} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

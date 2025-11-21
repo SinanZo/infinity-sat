@@ -183,3 +183,47 @@ export async function deleteSoftware(id: number) {
   await db.delete(software).where(eq(software.id, id));
   return { success: true };
 }
+
+export async function createCategory(category: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { categories } = await import("../drizzle/schema");
+  const result = await db.insert(categories).values(category);
+  return result;
+}
+
+export async function updateCategory(id: number, category: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { categories } = await import("../drizzle/schema");
+  await db.update(categories).set(category).where(eq(categories.id, id));
+  const result = await db.select().from(categories).where(eq(categories.id, id)).limit(1);
+  return result[0];
+}
+
+export async function deleteCategory(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { categories } = await import("../drizzle/schema");
+  await db.delete(categories).where(eq(categories.id, id));
+  return { success: true };
+}
+
+// Upload
+export async function uploadImage(input: { filename: string; data: string; mimeType: string }) {
+  const { storagePut } = await import("./storage");
+  
+  // Convert base64 to buffer
+  const base64Data = input.data.split(',')[1];
+  const buffer = Buffer.from(base64Data, 'base64');
+  
+  // Generate unique filename
+  const ext = input.filename.split('.').pop();
+  const randomSuffix = Math.random().toString(36).substring(7);
+  const filename = `uploads/${Date.now()}-${randomSuffix}.${ext}`;
+  
+  // Upload to S3
+  const result = await storagePut(filename, buffer, input.mimeType);
+  
+  return { url: result.url };
+}

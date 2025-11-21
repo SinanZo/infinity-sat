@@ -1,7 +1,7 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -23,6 +23,29 @@ export const appRouter = router({
       const { getAllCategories } = await import("./db");
       return getAllCategories();
     }),
+    create: adminProcedure
+      .input((val: unknown) => val as any)
+      .mutation(async ({ input }) => {
+        const { createCategory } = await import("./db");
+        return createCategory(input);
+      }),
+    update: adminProcedure
+      .input((val: unknown) => val as any)
+      .mutation(async ({ input }) => {
+        const { updateCategory } = await import("./db");
+        return updateCategory(input.id, input);
+      }),
+    delete: adminProcedure
+      .input((val: unknown) => {
+        if (typeof val === "object" && val !== null && "id" in val) {
+          return val as { id: number };
+        }
+        throw new Error("Invalid input");
+      })
+      .mutation(async ({ input }) => {
+        const { deleteCategory } = await import("./db");
+        return deleteCategory(input.id);
+      }),
   }),
 
   // Products
@@ -46,19 +69,19 @@ export const appRouter = router({
         const { getProductById } = await import("./db");
         return getProductById(input.id);
       }),
-    create: protectedProcedure
+    create: adminProcedure
       .input((val: unknown) => val as any)
       .mutation(async ({ input }) => {
         const { createProduct } = await import("./db");
         return createProduct(input);
       }),
-    update: protectedProcedure
+    update: adminProcedure
       .input((val: unknown) => val as any)
       .mutation(async ({ input }) => {
         const { updateProduct } = await import("./db");
         return updateProduct(input.id, input);
       }),
-    delete: protectedProcedure
+    delete: adminProcedure
       .input((val: unknown) => {
         if (typeof val === "object" && val !== null && "id" in val) {
           return val as { id: number };
@@ -88,19 +111,19 @@ export const appRouter = router({
         const { getSoftwareById } = await import("./db");
         return getSoftwareById(input.id);
       }),
-    create: protectedProcedure
+    create: adminProcedure
       .input((val: unknown) => val as any)
       .mutation(async ({ input }) => {
         const { createSoftware } = await import("./db");
         return createSoftware(input);
       }),
-    update: protectedProcedure
+    update: adminProcedure
       .input((val: unknown) => val as any)
       .mutation(async ({ input }) => {
         const { updateSoftware } = await import("./db");
         return updateSoftware(input.id, input);
       }),
-    delete: protectedProcedure
+    delete: adminProcedure
       .input((val: unknown) => {
         if (typeof val === "object" && val !== null && "id" in val) {
           return val as { id: number };
@@ -110,6 +133,16 @@ export const appRouter = router({
       .mutation(async ({ input }) => {
         const { deleteSoftware } = await import("./db");
         return deleteSoftware(input.id);
+      }),
+  }),
+
+  // Upload
+  upload: router({
+    image: protectedProcedure
+      .input((val: unknown) => val as any)
+      .mutation(async ({ input }) => {
+        const { uploadImage } = await import("./db");
+        return uploadImage(input);
       }),
   }),
 });
