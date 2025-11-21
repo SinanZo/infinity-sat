@@ -123,3 +123,8 @@
 - [x] Limit to maximum 4 products
 - [x] Make responsive for mobile devices
 - [x] Test comparison functionality
+
+
+## Bug Fixes
+
+- [x] Fix nested anchor tag error on homepage

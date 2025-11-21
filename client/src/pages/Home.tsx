@@ -101,17 +101,19 @@ export default function Home() {
                       </p>
                     </CardContent>
                     <CardFooter className="p-6 pt-0">
-                      <a
-                        href={`${whatsappUrl}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Button 
                         className="w-full"
+                        asChild
                       >
-                        <Button className="w-full">
+                        <a
+                          href={`${whatsappUrl}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <MessageCircle className="mr-2 h-4 w-4" />
                           {t('products.orderWhatsApp')}
-                        </Button>
-                      </a>
+                        </a>
+                      </Button>
                     </CardFooter>
                   </Card>
                 ))}
