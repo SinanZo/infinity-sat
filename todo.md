@@ -180,3 +180,8 @@
 - [x] Import 53 software items from official website
 - [x] Verify data accuracy
 - [x] Test website with real data
+
+
+## Bug Fixes (Software Page)
+
+- [x] Fix nested anchor tag error on Software page

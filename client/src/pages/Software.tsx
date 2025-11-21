@@ -116,24 +116,23 @@ export default function Software() {
                       </CardContent>
                       <CardFooter className="p-6 pt-0 flex gap-2">
                         {item.downloadUrl ? (
-                          <a href={item.downloadUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                            <Button className="w-full" variant="default">
+                          <Button className="w-full flex-1" variant="default" asChild>
+                            <a href={item.downloadUrl} target="_blank" rel="noopener noreferrer">
                               <Download className="mr-2 h-4 w-4" />
                               {t('software.download')}
-                            </Button>
-                          </a>
+                            </a>
+                          </Button>
                         ) : (
-                          <a
-                            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? item.titleAr : item.titleEn}`)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1"
-                          >
-                            <Button className="w-full">
+                          <Button className="w-full flex-1" asChild>
+                            <a
+                              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? item.titleAr : item.titleEn}`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <MessageCircle className="mr-2 h-4 w-4" />
                               {t('software.orderWhatsApp')}
-                            </Button>
-                          </a>
+                            </a>
+                          </Button>
                         )}
                       </CardFooter>
                     </Card>
@@ -189,23 +188,23 @@ export default function Software() {
                           </td>
                           <td className="p-4">
                             {item.downloadUrl ? (
-                              <a href={item.downloadUrl} target="_blank" rel="noopener noreferrer">
-                                <Button size="sm">
+                              <Button size="sm" asChild>
+                                <a href={item.downloadUrl} target="_blank" rel="noopener noreferrer">
                                   <Download className="mr-2 h-4 w-4" />
                                   {t('software.download')}
-                                </Button>
-                              </a>
+                                </a>
+                              </Button>
                             ) : (
-                              <a
-                                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? item.titleAr : item.titleEn}`)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Button size="sm">
+                              <Button size="sm" asChild>
+                                <a
+                                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? item.titleAr : item.titleEn}`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <MessageCircle className="mr-2 h-4 w-4" />
                                   {t('software.orderWhatsApp')}
-                                </Button>
-                              </a>
+                                </a>
+                              </Button>
                             )}
                           </td>
                         </tr>
