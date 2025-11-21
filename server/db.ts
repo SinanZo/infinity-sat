@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -89,4 +89,97 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Categories
+export async function getAllCategories() {
+  const db = await getDb();
+  if (!db) return [];
+  const { categories } = await import("../drizzle/schema");
+  return db.select().from(categories);
+}
+
+// Products
+export async function getAllProducts() {
+  const db = await getDb();
+  if (!db) return [];
+  const { products } = await import("../drizzle/schema");
+  return db.select().from(products).where(eq(products.active, 1));
+}
+
+export async function getProductById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const { products } = await import("../drizzle/schema");
+  const result = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  return result[0];
+}
+
+export async function getFeaturedProducts() {
+  const db = await getDb();
+  if (!db) return [];
+  const { products } = await import("../drizzle/schema");
+  return db.select().from(products).where(and(eq(products.featured, 1), eq(products.active, 1)));
+}
+
+export async function createProduct(product: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { products } = await import("../drizzle/schema");
+  const result = await db.insert(products).values(product);
+  return result;
+}
+
+export async function updateProduct(id: number, product: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { products } = await import("../drizzle/schema");
+  await db.update(products).set(product).where(eq(products.id, id));
+  return getProductById(id);
+}
+
+export async function deleteProduct(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { products } = await import("../drizzle/schema");
+  await db.delete(products).where(eq(products.id, id));
+  return { success: true };
+}
+
+// Software
+export async function getAllSoftware() {
+  const db = await getDb();
+  if (!db) return [];
+  const { software } = await import("../drizzle/schema");
+  return db.select().from(software).where(eq(software.active, 1));
+}
+
+export async function getSoftwareById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const { software } = await import("../drizzle/schema");
+  const result = await db.select().from(software).where(eq(software.id, id)).limit(1);
+  return result[0];
+}
+
+export async function createSoftware(item: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { software } = await import("../drizzle/schema");
+  const result = await db.insert(software).values(item);
+  return result;
+}
+
+export async function updateSoftware(id: number, item: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { software } = await import("../drizzle/schema");
+  await db.update(software).set(item).where(eq(software.id, id));
+  return getSoftwareById(id);
+}
+
+export async function deleteSoftware(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { software } = await import("../drizzle/schema");
+  await db.delete(software).where(eq(software.id, id));
+  return { success: true };
+}
