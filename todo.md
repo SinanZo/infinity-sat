@@ -128,3 +128,14 @@
 ## Bug Fixes
 
 - [x] Fix nested anchor tag error on homepage
+
+
+## Logo & Dark Mode
+
+- [x] Copy logos to public folder
+- [x] Update APP_LOGO constant to use new logos
+- [x] Enable dark mode theme switching
+- [x] Update Header to show theme-appropriate logo
+- [x] Update DashboardLayout to use theme-appropriate logo
+- [x] Set up favicon (user will update via Management UI)
+- [x] Test dark mode functionality

@@ -19,7 +19,8 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
+import { APP_LOGO_LIGHT, APP_LOGO_DARK, APP_TITLE, getLoginUrl } from "@/const";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
 import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -47,6 +48,7 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   const { loading, user } = useAuth();
+  const { theme } = useTheme();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
@@ -64,7 +66,7 @@ export default function DashboardLayout({
             <div className="relative group">
               <div className="relative">
                 <img
-                  src={APP_LOGO}
+                  src={theme === 'dark' ? APP_LOGO_DARK : APP_LOGO_LIGHT}
                   alt={APP_TITLE}
                   className="h-20 w-20 rounded-xl object-cover shadow"
                 />
@@ -116,6 +118,7 @@ function DashboardLayoutContent({
   setSidebarWidth,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -173,7 +176,7 @@ function DashboardLayoutContent({
               {isCollapsed ? (
                 <div className="relative h-8 w-8 shrink-0 group">
                   <img
-                    src={APP_LOGO}
+                    src={theme === 'dark' ? APP_LOGO_DARK : APP_LOGO_LIGHT}
                     className="h-8 w-8 rounded-md object-cover ring-1 ring-border"
                     alt="Logo"
                   />
@@ -188,7 +191,7 @@ function DashboardLayoutContent({
                 <>
                   <div className="flex items-center gap-3 min-w-0">
                     <img
-                      src={APP_LOGO}
+                      src={theme === 'dark' ? APP_LOGO_DARK : APP_LOGO_LIGHT}
                       className="h-8 w-8 rounded-md object-cover ring-1 ring-border shrink-0"
                       alt="Logo"
                     />

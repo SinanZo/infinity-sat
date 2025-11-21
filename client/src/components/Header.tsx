@@ -1,14 +1,16 @@
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
-import { APP_LOGO, APP_TITLE } from "@/const";
-import { Menu, X } from "lucide-react";
+import { APP_LOGO_LIGHT, APP_LOGO_DARK, APP_TITLE } from "@/const";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
   const { language, setLanguage, t } = useLanguage();
   const { isAuthenticated } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleLanguage = () => {
@@ -27,8 +29,11 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <img src={APP_LOGO} alt={APP_TITLE} className="h-8 w-8" />
-          <span className="font-bold text-lg">Infinity SAT</span>
+          <img 
+            src={theme === 'dark' ? APP_LOGO_DARK : APP_LOGO_LIGHT} 
+            alt={APP_TITLE} 
+            className="h-10 w-auto" 
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -44,6 +49,15 @@ export default function Header() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-3">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="hidden sm:inline-flex"
+          >
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
+
           <Button
             variant="outline"
             size="sm"
