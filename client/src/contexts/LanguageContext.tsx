@@ -28,6 +28,59 @@ const translations = {
     'home.featured.title': 'Featured Products',
     'home.featured.viewAll': 'View All Products',
     
+    // Features
+    'home.features.title': 'Why Choose Infinity SAT',
+    'home.features.subtitle': 'Premium quality receivers with advanced features and reliable performance',
+    'home.features.feature1.title': 'High-Speed Connectivity',
+    'home.features.feature1.description': 'Built-in WiFi and fast processing for smooth streaming',
+    'home.features.feature2.title': 'Reliable & Stable',
+    'home.features.feature2.description': 'Tested and proven performance with regular updates',
+    'home.features.feature3.title': 'Easy to Use',
+    'home.features.feature3.description': 'Simple setup and intuitive interface for all users',
+    'home.features.feature4.title': '24/7 Support',
+    'home.features.feature4.description': 'Always available via WhatsApp and phone',
+    
+    // Categories
+    'home.categories.title': 'Browse by Category',
+    'home.categories.subtitle': 'Find the perfect receiver for your entertainment needs',
+    'home.categories.satellite.title': 'Satellite Receivers',
+    'home.categories.satellite.description': 'Premium satellite receivers with 4K support and advanced features',
+    'home.categories.iptv.title': 'IPTV Receivers',
+    'home.categories.iptv.description': 'Stream your favorite channels with our IPTV solutions',
+    'home.categories.software.title': 'Software & APK',
+    'home.categories.software.description': 'Latest software updates and applications',
+    
+    // Why Choose Us
+    'home.whyChoose.title': 'Why Customers Choose Us',
+    'home.whyChoose.subtitle': 'We are committed to providing the best products and service',
+    'home.whyChoose.reason1.title': 'Official Products',
+    'home.whyChoose.reason1.description': 'Authentic Infinity SAT receivers with warranty',
+    'home.whyChoose.reason2.title': 'Expert Team',
+    'home.whyChoose.reason2.description': 'Professional support and technical assistance',
+    'home.whyChoose.reason3.title': 'Quality Guaranteed',
+    'home.whyChoose.reason3.description': 'Tested products with proven reliability',
+    'home.whyChoose.reason4.title': 'Regular Updates',
+    'home.whyChoose.reason4.description': 'Latest software and channel lists',
+    
+    // Testimonials
+    'home.testimonials.title': 'What Our Customers Say',
+    'home.testimonials.subtitle': 'Trusted by thousands of satisfied customers across Jordan',
+    'home.testimonials.testimonial1.text': 'Excellent receiver with great picture quality. The support team was very helpful with setup.',
+    'home.testimonials.testimonial1.name': 'Ahmad M.',
+    'home.testimonials.testimonial1.location': 'Amman, Jordan',
+    'home.testimonials.testimonial2.text': 'Best IPTV receiver I\'ve used. Stable connection and regular software updates.',
+    'home.testimonials.testimonial2.name': 'Khaled S.',
+    'home.testimonials.testimonial2.location': 'Irbid, Jordan',
+    'home.testimonials.testimonial3.text': 'Professional service and authentic products. Highly recommended!',
+    'home.testimonials.testimonial3.name': 'Mohammed R.',
+    'home.testimonials.testimonial3.location': 'Zarqa, Jordan',
+    
+    // CTA
+    'home.cta.title': 'Ready to Upgrade Your Entertainment?',
+    'home.cta.subtitle': 'Contact us today to find the perfect receiver for your needs',
+    'home.cta.contactButton': 'Contact Us on WhatsApp',
+    'home.cta.browseButton': 'Browse Products',
+    
     // Products page
     'products.title': 'Our Products',
     'products.subtitle': 'Explore our range of high-quality satellite receivers and accessories',
@@ -123,6 +176,59 @@ const translations = {
     'home.hero.whatsappSupport': 'دعم واتساب',
     'home.featured.title': 'المنتجات المميزة',
     'home.featured.viewAll': 'عرض جميع المنتجات',
+    
+    // Features
+    'home.features.title': 'لماذا تختار Infinity SAT',
+    'home.features.subtitle': 'أجهزة استقبال عالية الجودة مع ميزات متقدمة وأداء موثوق',
+    'home.features.feature1.title': 'اتصال عالي السرعة',
+    'home.features.feature1.description': 'واي فاي مدمج ومعالجة سريعة للبث السلس',
+    'home.features.feature2.title': 'موثوق ومستقر',
+    'home.features.feature2.description': 'أداء مختبر ومثبت مع تحديثات منتظمة',
+    'home.features.feature3.title': 'سهل الاستخدام',
+    'home.features.feature3.description': 'إعداد بسيط وواجهة سهلة لجميع المستخدمين',
+    'home.features.feature4.title': 'دعم على مدار الساعة',
+    'home.features.feature4.description': 'متاح دائماً عبر واتساب والهاتف',
+    
+    // Categories
+    'home.categories.title': 'تصفح حسب الفئة',
+    'home.categories.subtitle': 'اعثر على الجهاز المثالي لاحتياجات الترفيه الخاصة بك',
+    'home.categories.satellite.title': 'أجهزة الاستقبال الفضائية',
+    'home.categories.satellite.description': 'أجهزة استقبال فضائية مميزة بدعم 4K وميزات متقدمة',
+    'home.categories.iptv.title': 'أجهزة IPTV',
+    'home.categories.iptv.description': 'شاهد قنواتك المفضلة مع حلول IPTV الخاصة بنا',
+    'home.categories.software.title': 'البرامج والتطبيقات',
+    'home.categories.software.description': 'أحدث تحديثات البرامج والتطبيقات',
+    
+    // Why Choose Us
+    'home.whyChoose.title': 'لماذا يختارنا العملاء',
+    'home.whyChoose.subtitle': 'نحن ملتزمون بتقديم أفضل المنتجات والخدمات',
+    'home.whyChoose.reason1.title': 'منتجات رسمية',
+    'home.whyChoose.reason1.description': 'أجهزة Infinity SAT الأصلية مع الضمان',
+    'home.whyChoose.reason2.title': 'فريق متخصص',
+    'home.whyChoose.reason2.description': 'دعم محترف ومساعدة فنية',
+    'home.whyChoose.reason3.title': 'جودة مضمونة',
+    'home.whyChoose.reason3.description': 'منتجات مختبرة بموثوقية مثبتة',
+    'home.whyChoose.reason4.title': 'تحديثات منتظمة',
+    'home.whyChoose.reason4.description': 'أحدث البرامج وقوائم القنوات',
+    
+    // Testimonials
+    'home.testimonials.title': 'ماذا يقول عملاؤنا',
+    'home.testimonials.subtitle': 'موثوق به من قبل آلاف العملاء الراضين في جميع أنحاء الأردن',
+    'home.testimonials.testimonial1.text': 'جهاز ممتاز بجودة صورة رائعة. فريق الدعم كان مفيداً جداً في الإعداد.',
+    'home.testimonials.testimonial1.name': 'أحمد م.',
+    'home.testimonials.testimonial1.location': 'عمان، الأردن',
+    'home.testimonials.testimonial2.text': 'أفضل جهاز IPTV استخدمته. اتصال مستقر وتحديثات برامج منتظمة.',
+    'home.testimonials.testimonial2.name': 'خالد س.',
+    'home.testimonials.testimonial2.location': 'إربد، الأردن',
+    'home.testimonials.testimonial3.text': 'خدمة احترافية ومنتجات أصلية. أنصح به بشدة!',
+    'home.testimonials.testimonial3.name': 'محمد ر.',
+    'home.testimonials.testimonial3.location': 'الزرقاء، الأردن',
+    
+    // CTA
+    'home.cta.title': 'هل أنت مستعد لترقية ترفيهك؟',
+    'home.cta.subtitle': 'اتصل بنا اليوم للعثور على الجهاز المثالي لاحتياجاتك',
+    'home.cta.contactButton': 'اتصل بنا على واتساب',
+    'home.cta.browseButton': 'تصفح المنتجات',
     
     // Products page
     'products.title': 'منتجاتنا',
