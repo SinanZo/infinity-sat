@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useProductComparison } from "@/contexts/ProductComparisonContext";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +14,17 @@ import {
 } from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Loader2, MessageCircle, Grid3x3, List, Search, X, Star, SlidersHorizontal } from "lucide-react";
+import ComparisonBar from "@/components/ComparisonBar";
+import ComparisonModal from "@/components/ComparisonModal";
+import { Loader2, MessageCircle, Grid3x3, List, Search, X, Star, SlidersHorizontal, GitCompare } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 export default function Products() {
   const { t, language } = useLanguage();
+  const { addToComparison, removeFromComparison, isInComparison, canAddMore, comparisonProducts } = useProductComparison();
+  const [showComparison, setShowComparison] = useState(false);
   const { data: products, isLoading } = trpc.products.list.useQuery();
   const { data: categories } = trpc.categories.list.useQuery();
   const [searchTerm, setSearchTerm] = useState("");
@@ -72,6 +77,10 @@ export default function Products() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      
+      {/* Comparison Components */}
+      <ComparisonBar onCompare={() => setShowComparison(true)} />
+      <ComparisonModal open={showComparison} onOpenChange={setShowComparison} />
       
       <main className="flex-1">
         {/* Page Header */}
@@ -265,7 +274,25 @@ export default function Products() {
               viewMode === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProducts.map((product) => (
-                    <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow relative">
+                      {/* Comparison Checkbox */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <Checkbox
+                          id={`compare-${product.id}`}
+                          checked={isInComparison(product.id)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              if (canAddMore) {
+                                addToComparison(product);
+                              }
+                            } else {
+                              removeFromComparison(product.id);
+                            }
+                          }}
+                          disabled={!isInComparison(product.id) && !canAddMore}
+                          className="bg-background border-2"
+                        />
+                      </div>
                       <div className="aspect-video bg-muted relative overflow-hidden">
                         {product.image && (
                           <img
