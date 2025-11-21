@@ -315,17 +315,16 @@ export default function Products() {
                         </p>
                       </CardContent>
                       <CardFooter className="p-6 pt-0">
-                        <a
-                          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full"
-                        >
-                          <Button className="w-full">
+                        <Button asChild className="w-full">
+                          <a
+                            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <MessageCircle className="mr-2 h-4 w-4" />
-                            {t('products.orderWhatsApp')}
-                          </Button>
-                        </a>
+                            {t('products.orderViaWhatsApp')}
+                          </a>
+                        </Button>
                       </CardFooter>
                     </Card>
                   ))}
@@ -369,16 +368,16 @@ export default function Products() {
                             {product.price} {t('common.jod')}
                           </td>
                           <td className="p-4">
-                            <a
-                              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Button size="sm">
+                            <Button asChild size="sm">
+                              <a
+                                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 <MessageCircle className="mr-2 h-4 w-4" />
-                                {t('products.orderWhatsApp')}
-                              </Button>
-                            </a>
+                                {t('products.orderViaWhatsApp')}
+                              </a>
+                            </Button>
                           </td>
                         </tr>
                       ))}
