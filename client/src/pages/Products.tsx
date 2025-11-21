@@ -13,13 +13,19 @@ import {
 } from "@/components/ui/select";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Loader2, MessageCircle, Grid3x3, List } from "lucide-react";
+import { Loader2, MessageCircle, Grid3x3, List, Search, X, Star, SlidersHorizontal } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function Products() {
   const { t, language } = useLanguage();
   const { data: products, isLoading } = trpc.products.list.useQuery();
+  const { data: categories } = trpc.categories.list.useQuery();
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
+  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
 
   const whatsappNumber = "962796668653";
@@ -39,15 +45,29 @@ export default function Products() {
       const matchesCategory = 
         categoryFilter === "all" || product.categoryId?.toString() === categoryFilter;
       
-      return matchesSearch && matchesCategory;
+      const matchesPrice = 
+        product.price >= priceRange[0] && product.price <= priceRange[1];
+      
+      const matchesFeatured = 
+        !showFeaturedOnly || product.featured === 1;
+      
+      return matchesSearch && matchesCategory && matchesPrice && matchesFeatured;
     });
-  }, [products, searchTerm, categoryFilter, language]);
+  }, [products, searchTerm, categoryFilter, priceRange, showFeaturedOnly, language]);
 
-  const categories = useMemo(() => {
-    if (!products) return [];
-    const uniqueCategories = Array.from(new Set(products.map(p => p.categoryId).filter(Boolean)));
-    return uniqueCategories;
+  const maxPrice = useMemo(() => {
+    if (!products || products.length === 0) return 200;
+    return Math.max(...products.map(p => p.price));
   }, [products]);
+
+  const hasActiveFilters = searchTerm !== "" || categoryFilter !== "all" || priceRange[0] !== 0 || priceRange[1] !== maxPrice || showFeaturedOnly;
+
+  const clearFilters = () => {
+    setSearchTerm("");
+    setCategoryFilter("all");
+    setPriceRange([0, maxPrice]);
+    setShowFeaturedOnly(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -63,46 +83,172 @@ export default function Products() {
         </section>
 
         {/* Filters and Controls */}
-        <section className="py-8 border-b">
+        <section className="py-8 border-b bg-background">
           <div className="container">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              <div className="flex flex-1 gap-4 w-full md:w-auto">
-                <Input
-                  placeholder={t('products.search')}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="max-w-sm"
-                />
+            <div className="space-y-6">
+              {/* Search and View Mode */}
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div className="relative flex-1 w-full md:max-w-md">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder={t('products.search')}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                
+                <div className="flex gap-2">
+                  <Button
+                    variant={viewMode === "grid" ? "default" : "outline"}
+                    size="icon"
+                    onClick={() => setViewMode("grid")}
+                    aria-label="Grid view"
+                  >
+                    <Grid3x3 className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={viewMode === "table" ? "default" : "outline"}
+                    size="icon"
+                    onClick={() => setViewMode("table")}
+                    aria-label="Table view"
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Filters */}
+              <div className="flex flex-wrap gap-4 items-center">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">{language === 'ar' ? 'الفلاتر:' : 'Filters:'}</span>
+                </div>
+
+                {/* Category Filter */}
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[200px]">
                     <SelectValue placeholder={t('products.allCategories')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">{t('products.allCategories')}</SelectItem>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category?.toString() || ''}>
-                        {category}
+                    {categories?.map((category) => (
+                      <SelectItem key={category.id} value={category.id.toString()}>
+                        {language === 'ar' ? category.nameAr : category.nameEn}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+
+                {/* Price Range Filter */}
+                <Select 
+                  value={`${priceRange[0]}-${priceRange[1]}`} 
+                  onValueChange={(value) => {
+                    const [min, max] = value.split('-').map(Number);
+                    setPriceRange([min, max]);
+                  }}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={`0-${maxPrice}`}>
+                      {language === 'ar' ? 'جميع الأسعار' : 'All Prices'}
+                    </SelectItem>
+                    <SelectItem value="0-50">
+                      {language === 'ar' ? 'أقل من 50 دينار' : 'Under 50 JOD'}
+                    </SelectItem>
+                    <SelectItem value="50-100">
+                      {language === 'ar' ? '50-100 دينار' : '50-100 JOD'}
+                    </SelectItem>
+                    <SelectItem value="100-150">
+                      {language === 'ar' ? '100-150 دينار' : '100-150 JOD'}
+                    </SelectItem>
+                    <SelectItem value="150-999">
+                      {language === 'ar' ? 'أكثر من 150 دينار' : 'Over 150 JOD'}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {/* Featured Toggle */}
+                <div className="flex items-center space-x-2 rtl:space-x-reverse border rounded-md px-3 py-2">
+                  <Checkbox 
+                    id="featured" 
+                    checked={showFeaturedOnly}
+                    onCheckedChange={(checked) => setShowFeaturedOnly(checked as boolean)}
+                  />
+                  <Label htmlFor="featured" className="text-sm cursor-pointer flex items-center gap-1">
+                    <Star className="h-3 w-3" />
+                    {language === 'ar' ? 'المميزة فقط' : 'Featured Only'}
+                  </Label>
+                </div>
+
+                {/* Clear Filters */}
+                {hasActiveFilters && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="gap-1"
+                  >
+                    <X className="h-4 w-4" />
+                    {language === 'ar' ? 'مسح الفلاتر' : 'Clear Filters'}
+                  </Button>
+                )}
               </div>
-              
-              <div className="flex gap-2">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="icon"
-                  onClick={() => setViewMode("grid")}
-                >
-                  <Grid3x3 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "table" ? "default" : "outline"}
-                  size="icon"
-                  onClick={() => setViewMode("table")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
+
+              {/* Active Filters Summary */}
+              {hasActiveFilters && (
+                <div className="flex flex-wrap gap-2 items-center">
+                  <span className="text-sm text-muted-foreground">
+                    {language === 'ar' ? 'الفلاتر النشطة:' : 'Active filters:'}
+                  </span>
+                  {searchTerm && (
+                    <Badge variant="secondary" className="gap-1">
+                      {language === 'ar' ? 'بحث:' : 'Search:'} {searchTerm}
+                      <X 
+                        className="h-3 w-3 cursor-pointer" 
+                        onClick={() => setSearchTerm("")} 
+                      />
+                    </Badge>
+                  )}
+                  {categoryFilter !== "all" && (
+                    <Badge variant="secondary" className="gap-1">
+                      {categories?.find(c => c.id.toString() === categoryFilter)?.[language === 'ar' ? 'nameAr' : 'nameEn']}
+                      <X 
+                        className="h-3 w-3 cursor-pointer" 
+                        onClick={() => setCategoryFilter("all")} 
+                      />
+                    </Badge>
+                  )}
+                  {(priceRange[0] !== 0 || priceRange[1] !== maxPrice) && (
+                    <Badge variant="secondary" className="gap-1">
+                      {priceRange[0]}-{priceRange[1]} {t('common.jod')}
+                      <X 
+                        className="h-3 w-3 cursor-pointer" 
+                        onClick={() => setPriceRange([0, maxPrice])} 
+                      />
+                    </Badge>
+                  )}
+                  {showFeaturedOnly && (
+                    <Badge variant="secondary" className="gap-1">
+                      <Star className="h-3 w-3" />
+                      {language === 'ar' ? 'المميزة' : 'Featured'}
+                      <X 
+                        className="h-3 w-3 cursor-pointer" 
+                        onClick={() => setShowFeaturedOnly(false)} 
+                      />
+                    </Badge>
+                  )}
+                </div>
+              )}
+
+              {/* Results Count */}
+              <div className="text-sm text-muted-foreground">
+                {language === 'ar' 
+                  ? `عرض ${filteredProducts.length} من ${products?.length || 0} منتج`
+                  : `Showing ${filteredProducts.length} of ${products?.length || 0} products`
+                }
               </div>
             </div>
           </div>
