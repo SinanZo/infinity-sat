@@ -231,4 +231,15 @@
 - [x] Export all products, software, and categories data
 - [x] Create Vercel configuration file
 - [x] Prepare deployment documentation
-- [ ] Test deployment on Vercel
+- [x] Create simplified deployment guide
+- [x] Create deployment checklist
+- [ ] User completes Vercel deployment
+
+
+## Static HTML Version for cPanel
+
+- [ ] Export products and software data to JSON
+- [ ] Create static HTML pages
+- [ ] Convert React components to vanilla JavaScript
+- [ ] Package static site for cPanel deployment
+- [ ] Create cPanel deployment guide
