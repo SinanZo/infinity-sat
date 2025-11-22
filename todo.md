@@ -185,3 +185,12 @@
 ## Bug Fixes (Software Page)
 
 - [x] Fix nested anchor tag error on Software page
+
+
+## Product Images Update
+
+- [x] Check scraped image URLs from official website
+- [x] Create script to update product images in database
+- [x] Run update script
+- [x] Updated 43/45 product images and 53/53 software images
+- [x] Verify images are displaying correctly on website
