@@ -1,11 +1,25 @@
 {
-  "buildCommand": "pnpm run build",
-  "devCommand": "pnpm run dev",
+  "version": 2,
+  "buildCommand": "pnpm install && pnpm run build",
   "installCommand": "pnpm install",
-  "framework": "remix",
-  "outputDirectory": "build",
-  "regions": ["iad1"],
+  "framework": null,
+  "outputDirectory": "dist",
+  "builds": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["build/**", "client/public/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.js"
+    }
+  ],
   "env": {
-    "NODE_VERSION": "22"
+    "NODE_ENV": "production"
   }
 }
