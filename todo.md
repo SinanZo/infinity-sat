@@ -223,3 +223,12 @@
 
 - [x] Add CSS to hide "Powered by Manus" badge on login dialog
 - [x] Test login dialog appearance
+
+
+## Vercel Deployment
+
+- [x] Create database export script
+- [x] Export all products, software, and categories data
+- [x] Create Vercel configuration file
+- [x] Prepare deployment documentation
+- [ ] Test deployment on Vercel
