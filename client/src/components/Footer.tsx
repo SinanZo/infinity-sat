@@ -126,8 +126,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
+        <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground space-y-2">
           <p>© 2025 Infinity SAT. All rights reserved.</p>
+          <p className="flex items-center justify-center gap-1">
+            Powered by{" "}
+            <a
+              href="https://jawareer.info"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary hover:underline transition-colors"
+            >
+              Jawareer
+            </a>
+          </p>
         </div>
       </div>
     </footer>
