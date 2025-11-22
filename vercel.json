@@ -2,24 +2,33 @@
   "version": 2,
   "buildCommand": "pnpm install && pnpm run build",
   "installCommand": "pnpm install",
-  "framework": null,
-  "outputDirectory": "dist",
-  "builds": [
-    {
-      "src": "dist/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["build/**", "client/public/**"]
-      }
-    }
-  ],
+  "outputDirectory": "build/client",
   "routes": [
     {
+      "src": "/api/trpc/(.*)",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/oauth/(.*)",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/build/client/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "dest": "/build/client/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/dist/index.js"
+      "dest": "/build/client/index.html"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
+  "functions": {
+    "api/index.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
   }
 }
