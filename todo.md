@@ -274,3 +274,13 @@
 - [ ] User adds custom domain
 - [ ] User updates DNS records
 - [ ] Website goes live
+
+
+## Fix Vercel 404 Error
+
+- [x] Created api/index.ts serverless function entry point
+- [x] Updated vercel.json with proper routing configuration
+- [x] Separated static file serving (Vercel handles via routes)
+- [x] Created VERCEL_404_FIX.md with instructions
+- [ ] User uploads updated files to GitHub
+- [ ] Vercel auto-redeploys with working configuration
