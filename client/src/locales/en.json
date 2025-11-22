@@ -1,0 +1,107 @@
+{
+  "common": {
+    "jod": "JOD",
+    "loading": "Loading...",
+    "error": "Error",
+    "noResults": "No results found"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "software": "Software & APK",
+    "about": "About Us",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "home": {
+    "title": "Infinity SAT - Official Receivers & Softwares",
+    "hero": {
+      "title": "Watch everything you love with Infinity SAT receivers",
+      "subtitle": "High-quality satellite & IPTV receivers, official software and APKs, ready for Jordan and the region. Stable, updated and easy to use.",
+      "browseReceivers": "Browse Receivers",
+      "browseSoftware": "Software & APK",
+      "whatsappSupport": "WhatsApp Support"
+    },
+    "featuredProducts": "Featured Products",
+    "viewAll": "View All Products",
+    "whyChoose": "Why Choose Infinity SAT",
+    "quality": "Premium Quality",
+    "qualityDesc": "Official receivers and software with guaranteed quality and performance",
+    "support": "24/7 Support",
+    "supportDesc": "Fast WhatsApp support for all your questions and technical issues",
+    "updates": "Regular Updates",
+    "updatesDesc": "Latest software versions and firmware updates for optimal performance",
+    "delivery": "Fast Delivery",
+    "deliveryDesc": "Quick delivery across Jordan with professional installation support"
+  },
+  "products": {
+    "title": "Our Products",
+    "subtitle": "Browse our collection of premium satellite receivers and equipment",
+    "search": "Search products...",
+    "allCategories": "All Categories",
+    "orderWhatsApp": "Order via WhatsApp",
+    "noResults": "No products found",
+    "viewDetails": "View Details"
+  },
+  "software": {
+    "title": "Software & APK Downloads",
+    "subtitle": "Download the latest software, firmware updates and APKs for your receiver",
+    "search": "Search software...",
+    "download": "Download",
+    "orderWhatsApp": "Request via WhatsApp",
+    "noResults": "No software found",
+    "version": "Version",
+    "model": "Model",
+    "title.col": "Title",
+    "files": "Files",
+    "entryDate": "Release Date",
+    "order": "Action"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with us for any questions or support",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "hours": "Working Hours",
+    "workingDays": "Saturday - Thursday",
+    "findUs": "Find Us on Map",
+    "followUs": "Follow Us on Social Media"
+  },
+  "about": {
+    "title": "About Infinity SAT",
+    "subtitle": "Your trusted partner for satellite receivers and software in Jordan",
+    "ourStory": "Our Story",
+    "storyParagraph1": "Infinity SAT is a leading provider of high-quality satellite receivers, IPTV equipment, and official software in Jordan and the region. We are committed to delivering the best entertainment experience to our customers.",
+    "storyParagraph2": "With years of experience in the satellite industry, we offer a wide range of premium receivers, regular software updates, and professional technical support to ensure you get the most out of your entertainment system.",
+    "quality": "Premium Quality",
+    "qualityDescription": "We offer only official, high-quality receivers and software with guaranteed performance",
+    "innovation": "Latest Technology",
+    "innovationDescription": "Stay up-to-date with the latest receivers and software updates",
+    "support": "Expert Support",
+    "supportDescription": "Our team is ready to help you 24/7 via WhatsApp and phone",
+    "experience": "Years of Experience",
+    "experienceDescription": "Trusted by thousands of customers across Jordan",
+    "mission": "Our Mission",
+    "missionDescription": "To provide the best satellite entertainment experience with premium products, regular updates, and exceptional customer support.",
+    "vision": "Our Vision",
+    "visionDescription": "To be the leading provider of satellite receivers and software in the region, known for quality, reliability, and customer satisfaction."
+  },
+  "footer": {
+    "description": "Official Infinity SAT receivers, software, and support in Jordan and the region",
+    "products": "Products",
+    "receivers": "Receivers",
+    "dishes": "Dishes",
+    "lnbs": "LNBs",
+    "wires": "Wires & Cables",
+    "resources": "Resources",
+    "softwareApk": "Software & APK",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "contactUs": "Contact Us",
+    "phone": "+962 79 666 8653",
+    "email": "info@infinity-sat.com",
+    "location": "Amman, Jordan",
+    "rights": "© 2025 Infinity SAT. All rights reserved."
+  }
+}

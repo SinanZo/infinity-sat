@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm run build",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": "remix",
+  "outputDirectory": "build",
+  "regions": ["iad1"],
+  "env": {
+    "NODE_VERSION": "22"
+  }
+}
