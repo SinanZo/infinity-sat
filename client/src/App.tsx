@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ProductComparisonProvider } from "./contexts/ProductComparisonContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { ShoppingCartProvider } from "./contexts/ShoppingCartContext";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Software from "./pages/Software";
@@ -42,12 +43,14 @@ function App() {
         switchable
       >
         <LanguageProvider>
-          <ProductComparisonProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Router />
-            </TooltipProvider>
-          </ProductComparisonProvider>
+          <ShoppingCartProvider>
+            <ProductComparisonProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Router />
+              </TooltipProvider>
+            </ProductComparisonProvider>
+          </ShoppingCartProvider>
         </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>

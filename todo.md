@@ -194,3 +194,17 @@
 - [x] Run update script
 - [x] Updated 43/45 product images and 53/53 software images
 - [x] Verify images are displaying correctly on website
+
+
+## Shopping Cart Feature
+
+- [x] Create cart context for state management
+- [x] Add cart icon with badge to header
+- [x] Create cart drawer/modal component
+- [x] Add quantity controls (increase/decrease)
+- [x] Add remove item functionality
+- [x] Calculate cart total price
+- [x] Add 'Add to Cart' buttons to Products page
+- [x] Implement persistent cart with localStorage
+- [x] Create WhatsApp checkout with order summary
+- [x] Test shopping cart functionality

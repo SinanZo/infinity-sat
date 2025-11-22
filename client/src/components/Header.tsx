@@ -4,14 +4,18 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { APP_LOGO_LIGHT, APP_LOGO_DARK, APP_TITLE } from "@/const";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+import ShoppingCartDrawer from "@/components/ShoppingCartDrawer";
 
 export default function Header() {
   const { language, setLanguage, t } = useLanguage();
   const { isAuthenticated } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { cartCount } = useShoppingCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'ar' : 'en');
@@ -49,6 +53,21 @@ export default function Header() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-3">
+          {/* Shopping Cart */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setCartOpen(true)}
+            className="relative"
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">
+                {cartCount}
+              </span>
+            )}
+          </Button>
+
           <Button
             variant="ghost"
             size="icon"
@@ -115,6 +134,9 @@ export default function Header() {
           </nav>
         </div>
       )}
+
+      {/* Shopping Cart Drawer */}
+      <ShoppingCartDrawer open={cartOpen} onOpenChange={setCartOpen} />
     </header>
   );
 }

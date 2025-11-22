@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useProductComparison } from "@/contexts/ProductComparisonContext";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,10 +21,12 @@ import { Loader2, MessageCircle, Grid3x3, List, Search, X, Star, SlidersHorizont
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function Products() {
   const { t, language } = useLanguage();
   const { addToComparison, removeFromComparison, isInComparison, canAddMore, comparisonProducts } = useProductComparison();
+  const { addToCart } = useShoppingCart();
   const [showComparison, setShowComparison] = useState(false);
   const { data: products, isLoading } = trpc.products.list.useQuery();
   const { data: categories } = trpc.categories.list.useQuery();
@@ -314,8 +317,27 @@ export default function Products() {
                           {product.price} {t('common.jod')}
                         </p>
                       </CardContent>
-                      <CardFooter className="p-6 pt-0">
-                        <Button asChild className="w-full">
+                      <CardFooter className="p-6 pt-0 flex-col gap-2">
+                        <Button 
+                          className="w-full"
+                          onClick={() => {
+                            addToCart({
+                              id: product.id,
+                              nameEn: product.nameEn,
+                              nameAr: product.nameAr,
+                              price: product.price,
+                              image: product.image,
+                            });
+                            toast.success(
+                              language === 'en' 
+                                ? 'Added to cart!' 
+                                : 'تمت الإضافة إلى السلة!'
+                            );
+                          }}
+                        >
+                          {language === 'en' ? 'Add to Cart' : 'أضف إلى السلة'}
+                        </Button>
+                        <Button asChild variant="outline" className="w-full">
                           <a
                             href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
                             target="_blank"
@@ -368,16 +390,37 @@ export default function Products() {
                             {product.price} {t('common.jod')}
                           </td>
                           <td className="p-4">
-                            <Button asChild size="sm">
-                              <a
-                                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <div className="flex gap-2">
+                              <Button 
+                                size="sm"
+                                onClick={() => {
+                                  addToCart({
+                                    id: product.id,
+                                    nameEn: product.nameEn,
+                                    nameAr: product.nameAr,
+                                    price: product.price,
+                                    image: product.image,
+                                  });
+                                  toast.success(
+                                    language === 'en' 
+                                      ? 'Added to cart!' 
+                                      : 'تمت الإضافة إلى السلة!'
+                                  );
+                                }}
                               >
-                                <MessageCircle className="mr-2 h-4 w-4" />
-                                {t('products.orderViaWhatsApp')}
-                              </a>
-                            </Button>
+                                {language === 'en' ? 'Add to Cart' : 'أضف للسلة'}
+                              </Button>
+                              <Button asChild variant="outline" size="sm">
+                                <a
+                                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want to order: ${language === 'ar' ? product.nameAr : product.nameEn}`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <MessageCircle className="mr-2 h-4 w-4" />
+                                  {t('products.orderViaWhatsApp')}
+                                </a>
+                              </Button>
+                            </div>
                           </td>
                         </tr>
                       ))}
