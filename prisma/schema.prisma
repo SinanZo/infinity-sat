@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model categories {
+  id        Int       @id @default(autoincrement())
+  nameEn    String    @db.VarChar(255)
+  nameAr    String    @db.VarChar(255)
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+  updatedAt DateTime  @updatedAt @db.Timestamp(6)
+  products  products[]
+}
+
+model products {
+  id             Int        @id @default(autoincrement())
+  nameEn         String     @db.VarChar(255)
+  nameAr         String     @db.VarChar(255)
+  descriptionEn  String?    @db.Text
+  descriptionAr  String?    @db.Text
+  price          Decimal    @db.Decimal(10, 2)
+  image          String?    @db.VarChar(500)
+  categoryId     Int
+  featured       Int        @default(0) @db.SmallInt
+  featuresEn     String?    @db.Text
+  featuresAr     String?    @db.Text
+  createdAt      DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime   @updatedAt @db.Timestamp(6)
+  category       categories @relation(fields: [categoryId], references: [id])
+
+  @@index([categoryId])
+}
+
+model software {
+  id             Int      @id @default(autoincrement())
+  titleEn        String   @db.VarChar(255)
+  titleAr        String   @db.VarChar(255)
+  descriptionEn  String?  @db.Text
+  descriptionAr  String?  @db.Text
+  version        String?  @db.VarChar(50)
+  fileType       String?  @db.VarChar(50)
+  downloadUrl    String?  @db.VarChar(500)
+  model          String?  @db.VarChar(255)
+  image          String?  @db.VarChar(500)
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime @updatedAt @db.Timestamp(6)
+}
