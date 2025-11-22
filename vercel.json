@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "pnpm install && pnpm run build",
   "installCommand": "pnpm install",
-  "outputDirectory": "build/client",
+  "outputDirectory": "dist/public",
   "routes": [
     {
       "src": "/api/trpc/(.*)",
@@ -14,15 +14,15 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "/build/client/assets/$1"
+      "dest": "/dist/public/assets/$1"
     },
     {
       "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/build/client/$1"
+      "dest": "/dist/public/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/build/client/index.html"
+      "dest": "/dist/public/index.html"
     }
   ],
   "functions": {
