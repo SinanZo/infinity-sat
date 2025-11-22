@@ -5,6 +5,7 @@ import AdminLayout from "@/components/AdminLayout";
 import AdminRoute from "@/components/AdminRoute";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ImageUpload from "@/components/ImageUpload";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -422,12 +423,11 @@ export default function AdminSoftware() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="image">{language === 'ar' ? 'رابط الصورة' : 'Image URL'}</Label>
-                <Input
-                  id="image"
+                <Label htmlFor="image">{language === 'ar' ? 'الصورة' : 'Image'}</Label>
+                <ImageUpload
                   value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="https://..."
+                  onChange={(url) => setFormData({ ...formData, image: url })}
+                  label={language === 'ar' ? 'اسحب وأفلت الصورة هنا أو انقر للتحميل' : 'Drag and drop image here or click to upload'}
                 />
               </div>
 

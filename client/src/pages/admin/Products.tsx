@@ -36,6 +36,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import ImageUpload from "@/components/ImageUpload";
 
 interface ProductForm {
   id?: number;
@@ -351,15 +352,12 @@ export default function AdminProducts() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="image">{language === 'ar' ? 'رابط الصورة' : 'Image URL'}</Label>
-                <Input
-                  id="image"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="https://..."
-                />
-              </div>
+              <ImageUpload
+                label={language === 'ar' ? 'صورة المنتج' : 'Product Image'}
+                value={formData.image}
+                onChange={(url) => setFormData({ ...formData, image: url })}
+                required
+              />
 
               <div className="flex items-center space-x-2">
                 <Checkbox

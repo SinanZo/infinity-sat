@@ -138,11 +138,40 @@ export const appRouter = router({
 
   // Upload
   upload: router({
-    image: protectedProcedure
-      .input((val: unknown) => val as any)
+    image: adminProcedure
+      .input((val: unknown) => {
+        if (typeof val === "object" && val !== null && "base64" in val && "filename" in val) {
+          return val as { base64: string; filename: string; contentType?: string };
+        }
+        throw new Error("Invalid input: expected { base64, filename, contentType? }");
+      })
       .mutation(async ({ input }) => {
-        const { uploadImage } = await import("./db");
-        return uploadImage(input);
+        const { storagePut } = await import("./storage");
+        const { base64, filename, contentType = "image/jpeg" } = input;
+        
+        // Validate input
+        if (!base64 || base64.trim() === "") {
+          throw new Error("Base64 data is required");
+        }
+        if (!filename || filename.trim() === "") {
+          throw new Error("Filename is required");
+        }
+        
+        // Convert base64 to buffer
+        const buffer = Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), "base64");
+        
+        // Generate unique filename with timestamp
+        const timestamp = Date.now();
+        const ext = filename.split(".").pop() || "jpg";
+        const uniqueFilename = `products/${timestamp}-${Math.random().toString(36).substring(7)}.${ext}`;
+        
+        // Upload to S3
+        const result = await storagePut(uniqueFilename, buffer, contentType);
+        
+        return {
+          url: result.url,
+          key: result.key,
+        };
       }),
   }),
 });

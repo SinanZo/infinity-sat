@@ -53,8 +53,8 @@ export default function ImageUpload({ value, onChange, label, required }: ImageU
       const base64 = reader.result as string;
       uploadMutation.mutate({
         filename: file.name,
-        data: base64,
-        mimeType: file.type,
+        base64: base64,
+        contentType: file.type,
       });
     };
     reader.onerror = () => {

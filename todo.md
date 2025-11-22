@@ -284,3 +284,14 @@
 - [x] Created VERCEL_404_FIX.md with instructions
 - [ ] User uploads updated files to GitHub
 - [ ] Vercel auto-redeploys with working configuration
+
+
+## Admin Image Upload Feature
+
+- [x] Create image upload tRPC procedure with S3 integration
+- [x] Build reusable ImageUpload component with drag-and-drop
+- [x] Add image upload to product creation/edit form
+- [x] Add image upload to software creation/edit form
+- [x] Test image upload functionality
+- [x] Write tests for image upload procedures (7 tests passing)
+- [x] Add validation for empty base64 and filename
