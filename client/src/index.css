@@ -175,3 +175,21 @@
     }
   }
 }
+/* Hide Manus branding on login dialog */
+@layer utilities {
+  /* Target the "Powered by Manus" text in OAuth dialog */
+  [class*="powered"],
+  [class*="Powered"],
+  a[href*="manus.im"]:has-text("Powered by Manus"),
+  div:has(> a[href*="manus.im"]) {
+    display: none !important;
+  }
+  
+  /* More specific selectors for Manus OAuth dialog */
+  iframe[src*="manus.im"] + div:last-child,
+  div[class*="oauth"] a[href*="manus.im"],
+  div[class*="auth"] a[href*="manus.im"],
+  div[class*="login"] a[href*="manus.im"] {
+    display: none !important;
+  }
+}

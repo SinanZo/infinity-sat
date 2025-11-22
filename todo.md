@@ -217,3 +217,9 @@
 - [x] Add "Powered by Jawareer" footer with link to jawareer.info
 - [x] Test hero background display on different screen sizes
 - [x] Test footer link functionality
+
+
+## Hide Manus Branding
+
+- [x] Add CSS to hide "Powered by Manus" badge on login dialog
+- [x] Test login dialog appearance
