@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm run build && esbuild server/_core/vercel.ts --platform=node --packages=external --bundle --format=cjs --outdir=api",
+  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm run build && pnpm exec esbuild server/_core/vercel.ts --platform=node --packages=external --bundle --format=cjs --outdir=api",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "outputDirectory": "dist",
