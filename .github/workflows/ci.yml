@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Enable corepack and pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do mysqladmin ping -h127.0.0.1 -uroot -proot && break || sleep 2; done
+
+      - name: Create test database
+        env:
+          MYSQL_PWD: root
+        run: mysql -uroot -h127.0.0.1 -e "CREATE DATABASE IF NOT EXISTS railway;"
+
+      - name: Set DATABASE_URL
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/railway" >> $GITHUB_ENV
+
+      - name: Run migrations
+        run: pnpm run db:push
+
+      - name: Seed database
+        run: pnpm seed
+
+      - name: Run tests
+        run: pnpm test
