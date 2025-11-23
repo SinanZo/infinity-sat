@@ -110,6 +110,35 @@ pnpm run db:push
 
 Note: CI automatically runs `build:schema` before `db:push` and `seed`.
 
+## Deploying to Vercel (one-click)
+
+This repo includes a GitHub Actions workflow to deploy to Vercel on pushes to `main` and via manual dispatch. To enable automatic deployments you need to provide a Vercel token and project identifiers as GitHub repository secrets.
+
+1. Create a Vercel personal token:
+
+```bash
+# Install/vercel login if needed
+npm i -g vercel
+vercel login
+vercel tokens create
+# Copy the generated token
+```
+
+2. Find your Vercel `orgId` and `projectId`:
+
+```bash
+vercel projects ls
+# or via the Vercel dashboard (Project Settings → General → Project ID)
+```
+
+3. Add these three secrets to your GitHub repository (`Settings -> Secrets -> Actions`):
+- `VERCEL_TOKEN` = the token you created
+- `VERCEL_ORG_ID` = your Vercel organization id
+- `VERCEL_PROJECT_ID` = your Vercel project id
+
+Once those secrets are set, pushing to `main` or running the `Deploy to Vercel` workflow manually will build and deploy the site to your Vercel project.
+
+
 ## 🧪 Testing
 
 ```bash
