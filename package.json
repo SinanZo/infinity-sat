@@ -10,8 +10,10 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
+    "predb:push": "pnpm run build:schema",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "build:schema": "esbuild drizzle/schema.ts --bundle --platform=node --format=esm --outfile=drizzle/schema.js",
+    "preseed": "pnpm run build:schema",
     "seed": "pnpm run build:schema && node seed-db.mjs"
   },
   "dependencies": {
