@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express from "express";
+import express, { Request, Response } from "express";
 import path from "path";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
@@ -30,7 +30,7 @@ const distPath = path.join(process.cwd(), "dist", "public");
 app.use(express.static(distPath));
 
 // Fall through to index.html for client-side routing
-app.use("*", (_req, res) => {
+app.use("*", (_req: Request, res: Response) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
