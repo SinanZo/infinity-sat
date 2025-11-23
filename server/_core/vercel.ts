@@ -1,10 +1,10 @@
 import "dotenv/config";
 import express from "express";
+import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
-import { serveStatic } from "./vite";
 
 const app = express();
 
@@ -24,7 +24,13 @@ app.use(
   })
 );
 
-// Serve static files (production mode)
-serveStatic(app);
+// Serve static files from dist/public
+const distPath = path.join(process.cwd(), "dist", "public");
+app.use(express.static(distPath));
+
+// Fall through to index.html for client-side routing
+app.use("*", (_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
 
 export default app;
