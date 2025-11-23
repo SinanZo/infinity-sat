@@ -1,25 +1,10 @@
 {
-  "version": 2,
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm run build && pnpm exec esbuild server/_core/vercel.ts --platform=node --packages=external --bundle --format=cjs --outdir=api",
+  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm run build",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "framework": null,
-  "outputDirectory": "dist",
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/vercel.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/public/**"]
-      }
+      "source": "/(.*)",
+      "destination": "/api"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/vercel.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
