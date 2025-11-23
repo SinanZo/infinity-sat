@@ -1,0 +1,69 @@
+name: Vercel Diagnostics
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show runner info
+        run: |
+          echo "Runner: $(uname -a)"
+
+      - name: List Vercel teams
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "--- Vercel: Teams ---"
+          curl -s -H "Authorization: Bearer $VERCEL_TOKEN" https://api.vercel.com/v1/teams > teams.json || true
+          if command -v python3 >/dev/null 2>&1; then
+            python3 -m json.tool teams.json || cat teams.json
+          else
+            cat teams.json
+          fi
+
+      - name: List Vercel projects
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          echo "--- Vercel: Projects ---"
+          curl -s -H "Authorization: Bearer $VERCEL_TOKEN" https://api.vercel.com/v1/projects > projects.json || true
+          if command -v python3 >/dev/null 2>&1; then
+            python3 -m json.tool projects.json || cat projects.json
+          else
+            cat projects.json
+          fi
+
+      - name: Find project by name
+        run: |
+          echo "--- Searching for project 'infinity-sat' ---"
+          if [ -f projects.json ]; then
+            python3 - <<'PY' || true
+import json
+data = json.load(open('projects.json'))
+items = data.get('projects') or data.get('items') or data
+found = False
+for p in items:
+    name = p.get('name') if isinstance(p, dict) else None
+    if name == 'infinity-sat':
+        print('FOUND_PROJECT_ID:', p.get('id'))
+        if 'org' in p and isinstance(p['org'], dict):
+            print('ORG:', p['org'].get('id'))
+        if 'team' in p and isinstance(p['team'], dict):
+            print('TEAM:', p['team'].get('id'))
+        if 'orgId' in p:
+            print('orgId:', p['orgId'])
+        if 'teamId' in p:
+            print('teamId:', p['teamId'])
+        found = True
+        break
+if not found:
+    print('PROJECT_NOT_FOUND')
+PY
+          else
+            echo "projects.json not found"
+          fi
