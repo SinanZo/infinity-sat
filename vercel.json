@@ -1,18 +1,27 @@
 {
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm run build",
+  "version": 2,
+  "buildCommand": "pnpm install && pnpm run build",
+  "installCommand": "pnpm install",
   "outputDirectory": "dist/public",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/trpc/:path*",
-      "destination": "/api/index"
+      "src": "/api/trpc/(.*)",
+      "dest": "/api/index.ts"
     },
     {
-      "source": "/api/oauth/:path*",
-      "destination": "/api/index"
+      "src": "/api/oauth/(.*)",
+      "dest": "/api/index.ts"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/index"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.ts": {
+      "memory": 1024,
+      "maxDuration": 10,
+      "includeFiles": "{server/**,shared/**,drizzle/**,storage/**}"
+    }
+  }
 }
