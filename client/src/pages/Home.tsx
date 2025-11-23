@@ -48,16 +48,16 @@ export default function Home() {
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/products">
-                  <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
+                <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100" asChild>
+                  <Link href="/products">
                     {t('home.hero.browseReceivers')}
-                  </Button>
-                </Link>
-                <Link href="/software">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                  <Link href="/software">
                     {t('home.hero.browseSoftware')}
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                     <MessageCircle className="mr-2 h-5 w-5" />
@@ -158,9 +158,9 @@ export default function Home() {
           <div className="container">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-bold">{t('home.featured.title')}</h2>
-              <Link href="/products">
-                <Button variant="outline">{t('home.featured.viewAll')}</Button>
-              </Link>
+              <Button variant="outline" asChild>
+                <Link href="/products">{t('home.featured.viewAll')}</Link>
+              </Button>
             </div>
 
             {isLoading ? (
@@ -346,11 +346,11 @@ export default function Home() {
                     {t('home.cta.contactButton')}
                   </Button>
                 </a>
-                <Link href="/products">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                  <Link href="/products">
                     {t('home.cta.browseButton')}
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </Card>
           </div>
