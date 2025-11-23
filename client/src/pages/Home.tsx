@@ -27,6 +27,8 @@ export default function Home() {
               src="/hero-bg.jpg" 
               alt="Satellite background" 
               className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
           </div>
@@ -124,35 +126,29 @@ export default function Home() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Link href="/products">
-                <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Tv className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-xl mb-2">{t('home.categories.satellite.title')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('home.categories.satellite.description')}</p>
-                </Card>
-              </Link>
+              <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer" onClick={() => window.location.href = '/products'}>
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Tv className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">{t('home.categories.satellite.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('home.categories.satellite.description')}</p>
+              </Card>
               
-              <Link href="/products">
-                <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Globe className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-xl mb-2">{t('home.categories.iptv.title')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('home.categories.iptv.description')}</p>
-                </Card>
-              </Link>
+              <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer" onClick={() => window.location.href = '/products'}>
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Globe className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">{t('home.categories.iptv.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('home.categories.iptv.description')}</p>
+              </Card>
               
-              <Link href="/software">
-                <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Radio className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-xl mb-2">{t('home.categories.software.title')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('home.categories.software.description')}</p>
-                </Card>
-              </Link>
+              <Card className="p-8 text-center hover:shadow-lg transition-all hover:scale-105 cursor-pointer" onClick={() => window.location.href = '/software'}>
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Radio className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">{t('home.categories.software.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('home.categories.software.description')}</p>
+              </Card>
             </div>
           </div>
         </section>
