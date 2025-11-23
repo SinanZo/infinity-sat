@@ -88,6 +88,28 @@ JWT_SECRET=your-secret-key
 VITE_APP_TITLE=Infinity SAT - Modern Satellite Receivers & Software
 ```
 
+## Seeding & Schema
+
+- **Build the schema bundle (required by some scripts):**
+
+```powershell
+pnpm run build:schema
+```
+
+- **Seed the database (builds schema first):**
+
+```powershell
+pnpm seed
+```
+
+- **Run migrations (schema is built automatically via `predb:push`):**
+
+```powershell
+pnpm run db:push
+```
+
+Note: CI automatically runs `build:schema` before `db:push` and `seed`.
+
 ## 🧪 Testing
 
 ```bash
