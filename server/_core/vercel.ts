@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import path from "path";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
@@ -33,4 +34,16 @@ app.use("*", (_req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-export default app;
+// Vercel serverless function handler
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Convert Vercel request to Express-compatible format and pass through app
+  return new Promise((resolve, reject) => {
+    app(req as any, res as any, (err?: any) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(undefined);
+      }
+    });
+  });
+}
