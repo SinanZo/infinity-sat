@@ -109,3 +109,5 @@ temp/
 
 # Ignore generated Drizzle ESM/CJS bundle used for local seeding
 drizzle/schema.js
+
+.vercel
